@@ -1,12 +1,10 @@
-
+import { from } from "rxjs";
 
 /* 
   REMINDER:
   of = take arguments and generate a secuence
   from = it use itself with array, promise, iterable, observable
 */
-
-import { from } from "rxjs";
 
 const observer = {
   next : next => console.log('next:',next),
