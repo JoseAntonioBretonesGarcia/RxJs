@@ -1,6 +1,11 @@
-import { from } from "rxjs";
-import { distinctUntilKeyChanged } from "rxjs/operators";
+import { from, of } from "rxjs";
+import { distinctUntilChanged } from "rxjs/operators";
 
+const numbers$ = of(1,'1',1,3,3,2,2,4,4,5,3,'1');
+//This operator only doesnt stop the emit if the before emit is equal than actual
+numbers$.pipe(
+  distinctUntilChanged()// use the operator ===
+).subscribe(console.log);
 
 interface Character{
   name : string;
@@ -19,7 +24,5 @@ const characteres:Character[] = [
 ];
 
 from(characteres).pipe(
-  //This operator is a distinct but directly 
-  //compares an object property emitted by observable
-  distinctUntilKeyChanged('name')
+  distinctUntilChanged((before , actual)=>before.name === actual.name)
 ).subscribe(console.log);
